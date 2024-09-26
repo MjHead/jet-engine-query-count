@@ -49,7 +49,11 @@ class Jet_Engine_Query_Count_Macros extends Jet_Engine_Base_Macros {
 			$result += $value;
 		}
 
-		return $result;
+		$decimals            = isset( $args['decimal_num'] ) ? absint( $args['decimal_num'] ) : 2;
+		$decimal_separator   = isset( $args['decimal_sep'] ) ? $args['decimal_sep'] : '.';
+		$thousands_separator = isset( $args['thousand_sep'] ) ? htmlspecialchars_decode( $args['thousand_sep'] ) : ' ';
+
+		return number_format( $result, $decimals, $decimal_separator, $thousands_separator );
 	}
 
 	/**
@@ -76,6 +80,11 @@ class Jet_Engine_Query_Count_Macros extends Jet_Engine_Base_Macros {
 				'label'   => 'Thousand separator',
 				'type'    => 'text',
 				'default' => ' ',
+			),
+			'decimal_num' => array(
+				'label'   => 'Decimal number',
+				'type'    => 'text',
+				'default' => 2,
 			),
 			'decimal_sep' => array(
 				'label'   => 'Decimal point',
